@@ -49,7 +49,7 @@ var thisVariableNameIsSoLong;
 // unlike "var" when you declare a variable with "let",
 // that variable can only be declared once
 let camper = "James";
-let camper = "David";
+let camper = "David"; // <- error
 
 // constant
 const FAV_PET = "Cats";

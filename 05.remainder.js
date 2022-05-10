@@ -1,5 +1,5 @@
 // remainder
-remainder 11 % 3;
+remainder = 11 % 3;
 
 // in mathematics, a number can be checked to be even or odd
 // by checking the remainder of the division of the number by 2
