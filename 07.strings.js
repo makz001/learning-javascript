@@ -6,7 +6,7 @@ let doubleQuoteStr = "This is a string";
 let singleQuoteStr = 'This is also a string';
 
 let goodStr = 'Jake asks Finn, "Hey, let\'s go on an adventure?"';
-let badStr = 'Finn responds, "let's go!"';
+let badStr = 'Finn responds, "let's go!"'; // <- error
 
 // escape sequences in strings
 

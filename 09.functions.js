@@ -42,7 +42,7 @@ function myLocalScope() {
 }
 myLocalScope();
 
-console.log('outside myLocalScope', myVar); // myVar is not defined
+console.log('outside myLocalScope', myVar); // myVar is not defined <- error
 
 // global vs. local scope in functions
 const outerWear = "T-Shirt";
@@ -65,9 +65,9 @@ let returnValue = addSum(3); // returnValue == undefined
 console.log(sum); // 3
 
 // assignment with a returned value
-function sum(n, nn) {
+function sum1(n, nn) {
     return n + nn;
 }
 
-let ourSum = sum(5, 12); 
+let ourSum = sum1(5, 12); 
 console.log(ourSum); // 17
