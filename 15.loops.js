@@ -109,3 +109,52 @@ function multiplyAll(arr) {
 console.log("multiplyAll(arr):", multiplyAll(arr));
 
 console.log("---");
+
+// Iterate with javascript do...while loops:
+console.log("       - Iterate with javascript do...while loops:");
+
+const myArray5 = [];
+console.log("myArray5:", myArray5);
+
+let ii = 10;
+
+// Change the while loop in the code to a do...while loop so the loop will 
+// push only the number 10 to myArray, and i will be equal to 11 when your 
+// code has finished running.
+
+// while (ii < 5) {
+//     myArray5.push(ii);
+//     ii++;
+// }
+
+do {
+    myArray5.push(ii);
+    ii++;
+} while (ii < 5);
+
+console.log("myArray5:", myArray5);
+
+// Replace loops using recursion:
+console.log("       - Replace loops using recursion:");
+
+// Write a recursive function, sum(arr, n), that returns the sum of the first 
+// n elements of an array arr.
+
+const arr2 = [ 2, 3, 4 ];
+console.log("arr2:", arr2);
+
+function sum(arr, n) {
+    if (n <= 0) {
+        return 0;
+    } else {
+        return sum(arr, n - 1) + arr[n - 1];
+    }
+}
+
+// 4 return 0
+// 3 return sum(arr, 0) + 2 = 0 + 2
+// 2 return sum(arr, 1) + 3 = 2 + 3
+// 1 return sum(arr, 2) + 4 = 5 + 4
+// = 9
+
+console.log("sum(arr2, 3):", sum(arr2, 3));

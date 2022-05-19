@@ -55,10 +55,27 @@ function cc(card) {
 
 }
 
+function cc2(card) {
+    switch (true) {
+        case card === 2 || card === 3 || card === 4 || card == 5 || card == 6:
+            count++;
+            break;
+        case card === 10 || card === 'J' || card === 'Q' || card === 'K' || card === 'A':
+            count--;
+            break;
+    }
+
+    if (count > 0) {
+        return count + " Bet";
+    }
+    
+    return count + " Hold";
+}
+
 console.log("       - Counting cards:");
-console.log("result -> cc(2):", cc(2)); // 1 bet
-console.log("result -> cc(3):", cc(3)); // 2 bet
-console.log("result -> cc(7):", cc(7)); // 2 bet
-console.log("result -> cc('K'):", cc('K')); // 1 bet
-console.log("result -> cc('A'):", cc('A')); // 0 hold
+console.log("result -> cc2(2):", cc2(2)); // 1 bet
+console.log("result -> cc2(3):", cc2(3)); // 2 bet
+console.log("result -> cc2(7):", cc2(7)); // 2 bet
+console.log("result -> cc2('K'):", cc2('K')); // 1 bet
+console.log("result -> cc2('A'):", cc2('A')); // 0 hold
 console.log("---");
