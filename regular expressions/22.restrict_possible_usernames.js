@@ -28,8 +28,7 @@ let users = [
 ];
 
 // TODO: fix this
-let userCheck = /[a-z][a-z]+\d*$|^[a-z]\d+\d$/;
-
+let userCheck = /^[a-z][a-z]+\d*$|^[a-z]\d\d+$/i;
 
 result = test();
 
@@ -37,7 +36,8 @@ console.log(`
     userCheck: ${userCheck}
 
     result:    ${result.pass}
-    failAt:    ${result.failAt}
+    failAt:    ${result.failAt.length > 0 ? 
+         result.failAt : 'no errors found'}
 `);
 
 function test() {
@@ -61,5 +61,5 @@ function test() {
             break;
         }
     }
-    return t;
+    return result;
 }
