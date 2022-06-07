@@ -1,0 +1,5 @@
+- [x] TODO: learn Array.map
+- [x] TODO: learn Array.reduce
+- [x] TODO: learn Math.max
+- [x] TODO: learn Array.find
+- [x] TODO: learn Array.concat
