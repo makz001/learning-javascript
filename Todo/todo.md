@@ -3,3 +3,4 @@
 - [x] TODO: learn Math.max
 - [x] TODO: learn Array.find
 - [x] TODO: learn Array.concat
+- [x] TODO: learn string.trim
