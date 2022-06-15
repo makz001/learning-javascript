@@ -10,6 +10,7 @@
 // Translate the provided string to Pig Latin. Input strings are guaranteed to be 
 // English words in all lowercase.
 
+/* TODO: improve this with better regex */
 function translatePigLatin(str) {
     let vowel = ['a','e','i','o','u'];
     let consonant = /^[bcdfghjklmnpqrstvwyz]+/;
