@@ -9,13 +9,16 @@
 // array (the first argument), because it contains the name and its value, that was passed 
 // on as the second argument.
 
-/* TODO: */function whatIsInAName(collection, source) {
+function whatIsInAName(collection, source) {
     const arr = [];
     // Only change code below this line
 
+    const keys = Object.keys(source);
+
+    arr.push(...collection.filter(obj => keys.every(key => obj[key] === source[key])));
 
     // Only change code above this line
     return arr;
 }
 
-whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
+console.log(whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }));
