@@ -8,10 +8,34 @@
 // For example, sumFibs(10) should return 10 because all odd Fibonacci numbers less than or 
 // equal to 10 are 1, 1, 3, and 5.
 
-function sumFibs(num) {
-    return num;
+function fib(num) {
+    if (num < 2) {
+        return num;
+    }
+
+    return fib(num - 1) + fib(num - 2);
 }
 
+// TODO: improve with reduce + filter ([1,1])
+function sumFibs(num) {
+    let sum = 0;
+    let i = 1;
+    while (true) {
+        let f = fib(i);
+        if (f <= num) {
+            if (f % 2 !== 0) {
+                sum += f;
+            }
+        } else {
+            break;
+        }
+        i++;
+    }
+
+    return sum;
+}
+
+console.log(sumFibs(10));
 
 // sumFibs(1) should return a number.
 // sumFibs(1000) should return 1785.

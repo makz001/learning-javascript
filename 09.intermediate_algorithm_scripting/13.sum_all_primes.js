@@ -4,8 +4,10 @@
 
 // Rewrite sumPrimes so it returns the sum of all prime numbers that are less than or equal to num.
 
+// n is prime if n < 1 && n % 1 === 0 && n % n === 0 && n % x !=== 0 / where x is any other number rather than 1 or n
+
 function sumPrimes(num) {
-    return num;
+    return sum;
 }
 
-sumPrimes(10);
+console.log(sumPrimes(10));
