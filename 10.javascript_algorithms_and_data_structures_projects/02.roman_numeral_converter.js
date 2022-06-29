@@ -21,28 +21,20 @@ function print(a) {
     console.log(a);
 }
 
-const numbers = {
-       1:  "I",
-       5:  "V",
-      10:  "X",
-      50:  "L",
-     100:  "C",
-     500:  "D",
-    1000:  "M",
-     len:    7,
-};
+const numbers = [
+    [1:  "I"],
+    [5:  "V"],
+    [10:  "X"],
+    [50:  "L"],
+    [100:  "C"],
+    [500:  "D"],
+    [1000:  "M"],
+];
 
 function convertToRoman(num) {
-    num = num.toString();
-
-    if (numbers[num] !== undefined) {
-        print(numbers[num]);
-    } else {
-        print(num % 9);
-    }
 }
 
-convertToRoman(3000);
+convertToRoman(2);
 
 // convertToRoman(2) should return the string II.
 // convertToRoman(3) should return the string III.
