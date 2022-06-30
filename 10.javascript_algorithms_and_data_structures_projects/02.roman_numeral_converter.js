@@ -17,24 +17,31 @@
 
 // All roman numerals answers should be provided in upper-case.
 
-function print(a) {
-    console.log(a);
+function ctr(n, zc) {
+        if (n < 4) {
+            let str = zc === 0 ? 'I' : zc === 1 ? 'X' : zc === 2 ? 'C' : 'M';
+            return str.repeat(n);
+        } else if (n == 4) {
+            return zc === 0 ? 'IV' : zc === 1 ? 'XL' : 'CD';
+        } else if (n > 4 && n < 9) {
+            let str = zc === 0 ? 'V' : zc === 1 ? 'L' : 'D';
+            let str2 = zc === 0 ? 'I' : zc === 1 ? 'X' :'C';
+            return str + str2.repeat(n - 5);
+        } else if (n == 9) {
+            return zc === 0 ? 'IX' : zc === 1 ? 'XC' : 'CM';
+        }
 }
-
-const numbers = [
-    [1:  "I"],
-    [5:  "V"],
-    [10:  "X"],
-    [50:  "L"],
-    [100:  "C"],
-    [500:  "D"],
-    [1000:  "M"],
-];
 
 function convertToRoman(num) {
+    num = num.toString().split(''); 
+    for (let i = 0; i < num.length; i++) { 
+        let zerosCount = num.length - 1 - i; 
+        num[i] = ctr(num[i], zerosCount);
+    }
+    return num.join('');
 }
 
-convertToRoman(2);
+convertToRoman(649) // should return the string DCXLIX
 
 // convertToRoman(2) should return the string II.
 // convertToRoman(3) should return the string III.
