@@ -8,10 +8,27 @@
 // evenly divisible by all numbers between 1 and 3. The answer here would be 6.
     
 function smallestCommons(arr) {
-    return arr;
+    let [a, b] = arr.sort((a, b) => a - b);
+    
+    let n = 1;
+    while (true) {
+        let bool = true;
+        for (let i = a; i <= b; i++) {
+            if (n % i !== 0) {
+                bool = false;
+                break;
+            }
+        }
+        if (bool) {
+            break;
+        }
+        n++;
+    }
+    return n;
 }
 
 smallestCommons([1,5]);
+smallestCommons([23, 18]) // should return 6056820.
 
 // smallestCommons([1, 5]) should return a number.
 // smallestCommons([1, 5]) should return 60.
