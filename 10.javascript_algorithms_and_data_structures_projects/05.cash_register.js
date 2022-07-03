@@ -44,19 +44,28 @@ const coins = [
    ['NICKEL', 0.05],
    ['DIME', 0.1],
    ['QUARTER', 0.25],
-   ['ONE', 1.00],
-   ['FIVE', 5.00],
-   ['TEN', 10.00],
-   ['TWENTY', 20.00],
-   ['ONE HUNDRED', 100.000],
+   ['ONE', 1],
+   ['FIVE', 5],
+   ['TEN', 10],
+   ['TWENTY', 20],
+   ['ONE HUNDRED', 100],
 ];
 
-function checkCashRegister(price, cash, cid) {
-    let diff = Math.abs(price - cash);
-    console.log(cid);
+const add = (a, b) => {
+    let cza = a.toString().split('.').slice(1).length;
+    let czb = b.toString().split('.').slice(1).length;
 
+    let xa = cza === 0 ? 1 : cza === 1 ? 10 : 100;
+    let xb = czb === 0 ? 1 : czb === 1 ? 10 : 100;
+
+    return ((a * xa) + (b * xb)) / (xa)
+};
+const sub = (a, b) => ((a * 100) - (b * 100)) / 100;
+const div = (a, b) => ((a * 100) / (b * 100)) / 100;
+
+function checkCashRegister(price, cash, cid) {
+    let diff = cash - price;
     let change = { status: '', change: [] };
-    
     let coinIndex;
     for (let i = 0; i < coins.length; i++) {
         if (coins[i][1] > diff) {
@@ -65,28 +74,63 @@ function checkCashRegister(price, cash, cid) {
         }
     }
 
+    let lastCoin;
     for (let i = coinIndex; i >= 0; i--) {
-        if (diff - cid[i][1] < 0) {
-            change['status'] = 'OPEN';
-            change['change'].push([cid[i][0], diff]);
-            break;
-        } else if (diff - cid[i][1] > 0) {
-            change['change'].push(cid[i]);
-            console.log(diff, cid[i][1]);
-            diff -= cid[i][1];
-        } else {
-            change['change'].push(cid[i]);
+        if (cid[i][1] !== 0) {
+            let limit = cid[i][1] / coins[i][1];
+            let sum = 0;
+
+            while (limit > 0 && diff >= coins[i][1]) {
+                diff = sub(diff, coins[i][1]);
+                limit--;
+                sum = add(sum, coins[i][1]);
+                console.log('diff', diff, 'coins', coins[i], 'limit', limit);
+            }
+            if (sum !== 0) {
+            change['change'].push([cid[i][0], sum]);
+            }
+            lastCoin = cid[i][1];
         }
     }
-    console.log(change);
+    if (diff === 0) {
+        change['status'] = "OPEN";
+    } else if (diff !== 0 && diff > lastCoin) {
+        change['status'] = "INSUFFICIENT_FUNDS";
+        change['change'] = [];
+    } else if (diff === 0 && lastCoin === 0) {
+        change['status'] = "CLOSED";
+        change['change'] = [];
+    }
 
-    // insufficient_funds
-    // open
-    // closed
+    console.log(change);
+    return change;
 }
 
-// checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]); // should return {status: "OPEN", change: [["QUARTER", 0.5]]}.
-checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]) // should return {status: "OPEN", change: [["TWENTY", 60], ["TEN", 20], ["FIVE", 15], ["ONE", 1], ["QUARTER", 0.5], ["DIME", 0.2], ["PENNY", 0.04]]}.
+function ccr(price, cash, cid) {
+    let diff = cash - price;
+    let a = cid.reduce( (acc, el, ix) => {
+        console.log('d:', diff, 'e:', el[1], 'c:', coins[ix][1]);
+        if (diff >= coins[ix][1]) {
+            return [...acc, [el]];
+        } else {
+            return acc;
+        }
+    }, []);
+    console.log(a);
+}
+ccr(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]); 
+
+// checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]); 
+// should return {status: "OPEN", change: [["QUARTER", 0.5]]}.
+
+// checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) 
+// should return {status: "CLOSED", change: [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]}.
+
+// checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]) 
+// should return {status: "OPEN", change: [["TWENTY", 60], ["TEN", 20], ["FIVE", 15], ["ONE", 1], ["QUARTER", 0.5], ["DIME", 0.2], ["PENNY", 0.04]]}.
+
+// checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) 
+// should return {status: "INSUFFICIENT_FUNDS", change: []}.
 
 // checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]) should return an object.
 // checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]) should return {status: "OPEN", change: [["QUARTER", 0.5]]}.
